@@ -1,0 +1,18 @@
+{
+    "name": "cs642-project2-container",
+    "dockerFile": "Dockerfile",
+    "runArgs": [],
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+    "workspaceFolder": "/workspace",
+    "postCreateCommand": "",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "yzhang.markdown-all-in-one",
+                "tomoki1207.pdf" // to visualize PDF figures in VScode
+            ]
+        }
+    }
+}
