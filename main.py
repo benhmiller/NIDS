@@ -18,7 +18,7 @@ def exp1(data, labels):
     # Prepare local variables
     X = data
     y = labels
-    tree_sizes = range(7,16)
+    tree_sizes = range(5,16)
     train_errors = []
     val_errors = []
 
@@ -117,7 +117,6 @@ def exp1(data, labels):
     plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
     plt.xlim([0.0, 1.0])
     plt.ylim([0.0, 1.05])
-
     plt.xlabel('False Positive Rate')
     plt.ylabel('True Positive Rate')
     plt.title('Receiver Operating Characteristic (ROC) Curve')
@@ -137,7 +136,7 @@ def exp2(data, labels):
     # Prepare local variables
     X = data
     y = labels
-    tree_sizes = range(5,15)
+    tree_sizes = range(5,16)
 
     # Split Data Into Train, Test, and Validation Sets
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
@@ -146,7 +145,7 @@ def exp2(data, labels):
     cv_scores = []
     for depth in tree_sizes:
         # Create decision tree classifier with current size
-        clf = tree.DecisionTreeClassifier(max_depth=depth)
+        clf = tree.DecisionTreeClassifier(max_depth=depth, random_state=42)
 
         # Perform 5-fold cross-validation on the training set
         scores = cross_val_score(clf, X_train, y_train, cv=5)
@@ -185,11 +184,11 @@ def exp2(data, labels):
     feature_names = list(X.columns)
     plt.figure(figsize=(40, 20))
     tree.plot_tree(model, filled=True, rounded=True, feature_names=feature_names)
-    plt.savefig('figures/exp2/decision_tree.png')
+    plt.savefig('figures/exp2/decision_tree.svg', format='svg')
     plt.close()
 
     # Plot feature importance in final model
-    plt.figure(figsize=(10, 6))
+    plt.figure(figsize=(20, 20))
     plt.barh(feature_names, model.feature_importances_)
     plt.xlabel('Feature Importance')
     plt.ylabel('Feature')
@@ -208,10 +207,51 @@ def exp2(data, labels):
     plt.savefig('figures/exp2/confusion_matrix.png')
     plt.close()
 
+    """STUDENT CODE ABOVE"""
+    return model
+
+
+def exp3(data, labels):
+    """STUDENT CODE BELOW"""
+    # define model architecture
+    model = neural_network.MLPClassifier(hidden_layer_sizes=(100,50), activation='relu')
+
+    # Prepare local variables
+    X = data
+    y = labels
+
+    # Train-Test Split
+    X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=0)
+
+    # Train Model (with default values)
+    model.fit(X_train, y_train)
+
+    # Evaluate final model on the test set
+    val_accuracy = model.score(X_val, y_val)
+    print("Validation Set Accuracy:", val_accuracy)
+
+    # Plot Loss Curve
+    plt.plot(model.loss_curve_)
+    plt.xlabel('Epochs')
+    plt.ylabel('Loss')
+    plt.title('Loss Curve Over Epochs')
+    plt.savefig('figures/exp3/loss_curve.png')
+    plt.close()
+
+    # Plot confusion matrix of final model
+    y_pred = model.predict(X_val)
+    conf_matrix = metrics.confusion_matrix(y_val, y_pred)
+    plt.figure(figsize=(8, 6))
+    sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues')
+    plt.xlabel('Predicted labels')
+    plt.ylabel('True labels')
+    plt.title('Confusion Matrix')
+    plt.savefig('figures/exp3/confusion_matrix.png')
+    plt.close()
+
     # Plot ROC Curve of final model
-    '''
-    y_pred_proba = model.predict_proba(X_test)[:, 1]
-    fpr, tpr, thresholds = metrics.roc_curve(y_test, y_pred_proba)
+    y_pred_proba = model.predict_proba(X_val)[:, 1]
+    fpr, tpr, thresholds = metrics.roc_curve(y_val, y_pred_proba)
     roc_auc = metrics.auc(fpr, tpr)
     plt.figure(figsize=(8, 6))
     plt.plot(fpr, tpr, color='darkorange', lw=2, label='ROC curve (area = %0.2f)' % roc_auc)
@@ -222,31 +262,8 @@ def exp2(data, labels):
     plt.ylabel('True Positive Rate')
     plt.title('Receiver Operating Characteristic (ROC) Curve')
     plt.legend(loc="lower right")
-    plt.savefig('figures/exp2/ROC_curve.png')
+    plt.savefig('figures/exp3/ROC_curve.png')
     plt.close()
-    '''
-    """STUDENT CODE ABOVE"""
-    return model
-
-
-def exp3(data, labels):
-    """STUDENT CODE BELOW"""
-    # define model architecture
-    model = neural_network.MLPClassifier(hidden_layer_sizes=(50,))
-
-    # Prepare local variables
-    X = data
-    y = labels
-
-    # Train-Test Split
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
-
-    # Train Model (with default values)
-    model.fit(X_train, y_train)
-
-    # Evaluate final model on the test set
-    test_accuracy = model.score(X_test, y_test)
-    print("Test Set Accuracy:", test_accuracy)
 
     """STUDENT CODE ABOVE"""
     return model
@@ -254,24 +271,41 @@ def exp3(data, labels):
 
 def exp4(data, labels):
     """STUDENT CODE BELOW"""
-    
     # define model architecture
-    model = neural_network.MLPClassifier(hidden_layer_sizes=(100,))
-    #'hidden_layer_sizes': [(50,), (100,), (50, 50), (100, 50)],
+    model = neural_network.MLPClassifier(hidden_layer_sizes=(150,100), activation='relu')
 
     # Prepare local variables
     X = data
     y = labels
 
     # Train-Test Split
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+    X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=0)
 
     # Train Model (with default values)
     model.fit(X_train, y_train)
 
     # Evaluate final model on the test set
-    test_accuracy = model.score(X_test, y_test)
-    print("Test Set Accuracy:", test_accuracy)
+    val_accuracy = model.score(X_val, y_val)
+    print("Validation Set Accuracy:", val_accuracy)
+
+    # Plot Loss Curve
+    plt.plot(model.loss_curve_)
+    plt.xlabel('Epochs')
+    plt.ylabel('Loss')
+    plt.title('Loss Curve Over Epochs')
+    plt.savefig('figures/exp4/loss_curve.png')
+    plt.close()
+
+    # Plot confusion matrix of final model
+    y_pred = model.predict(X_val)
+    conf_matrix = metrics.confusion_matrix(y_val, y_pred)
+    plt.figure(figsize=(8, 6))
+    sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues')
+    plt.xlabel('Predicted labels')
+    plt.ylabel('True labels')
+    plt.title('Confusion Matrix')
+    plt.savefig('figures/exp4/confusion_matrix.png')
+    plt.close()
     '''
     # Prepare local variables
     X = data

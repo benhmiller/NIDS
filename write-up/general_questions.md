@@ -31,7 +31,7 @@ Replace this text with your answer (should be between 2-4 sentences).
 
 ### Q5: Between decision trees and neural networks, which model would you recommend using in security sensitive domains and why? There are no wrong answers here, but answer should be supported with sufficient justification.
 
-Replace this text with your answer (should be between 2-4 sentences).
+Personally, I feel that a decision tree model would prove more effective in security sensitive domains as, if the system generates an alert, an engineer may  evaluate the decision tree and manually understand how the system arrived at its conclusion. Of course, if the security personel preferred to implement a more adaptable model to handle novel and evolving threats, then a neural network may be recommended—though, notably, at the cost of interpretability and human understandability.
 
 ### Q6: What did you notice when switching from the binary classification to multiclass classification setting? How does that impact security?
 
@@ -39,4 +39,7 @@ Replace this text with your answer (should be between 2-4 sentences).
 
 ### Q7: What information does an NIDS (and therefore the system admins) need to access to be effective, and how does that relate to the privacy of users accessing the network?
 
-Replace this text with your answer (should be between 2-4 sentences).
+In order to prove effective, a network intrusion detection system needs access to: network traffic data such as source and destination IP addresses, ports, and other network insights; databases of known benign and malicious activity to train and interpret patterns for future classification; and logging and reporting tools to record events and generate alerts
+
+
+ With regard to the privacy of users accessing the network, users should be required to consent to data traffic collection (i.e. browsing activity, application usage, user communcations, etc.) in order to ensure transparency and allow the NIDS to verify their actions are benign. Consequently, design of the NIDS should ensure only authorized personnel are capable of accessing the data utilized by the system. Finally, to protect user confidentiality, designers may need to implement data anonymization or encryption techniques that prevent anything but the system from viewing information about users. 
