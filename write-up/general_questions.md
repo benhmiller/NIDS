@@ -2,7 +2,13 @@
 
 ### Q1: What are some advantages and disadvantages of using a supervised machine learning classifier for intrusion detection compared to a signature-based (non-learning) classifier?
 
-Replace this text with your answer (should be between 2-4 sentences).
+
+When utilizing a supervised machine learning classifier for intrusion detection compared to a signature-based (non-learning) classifier, one may note numerous advantages, such as:
+- By learning from labeled data, a ML classifier does not need manually defined rules to identify threats as it instead relies on data extraction and pattern recognition to classify activity as normal or malicious. Further, such adaptive classification increases the ability of the model to detect novel threats and flag unseen attacks, a quality lacked by a signature-based classifier.
+
+Disadvantages, however, do exist, such as:
+- For a supervised ML classifier to function optimally, the quality and quantity of data must prove sufficient, which may become a challenge
+- Models may prove subject to overfitting which could negatively affect their performance when classifying unseen data.
 
 ### Q2: What is the importance of using a validation set?
 

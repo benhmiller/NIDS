@@ -18,7 +18,9 @@ def exp1(data, labels):
     # Prepare local variables
     X = data
     y = labels
-    tree_sizes = range(10,16)
+    tree_sizes = range(7,16)
+    train_errors = []
+    val_errors = []
 
     # Split Data Into Train, Test, and Validation Sets
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -37,6 +39,23 @@ def exp1(data, labels):
 
         # Append score to list
         cv_scores.append(avg_score)
+        
+        # Fit model on entire training set to calculate training and validation errors
+        clf.fit(X_train, y_train)
+        train_error = 1 - clf.score(X_train, y_train)
+        val_error = 1 - avg_score
+        train_errors.append(train_error)
+        val_errors.append(val_error)
+
+    # Plot Training vs. Validation Error
+    plt.plot(tree_sizes, train_errors, marker='o', label='Training Error')
+    plt.plot(tree_sizes, val_errors, marker='o', label='Validation Error')
+    plt.title('Training vs. Validation Error')
+    plt.xlabel('Tree Depth')
+    plt.ylabel('Error')
+    plt.legend()
+    plt.savefig('figures/exp1/training_vs_validation_error.png')
+    plt.close()
 
     # Determine Optimal Tree Size and Score
     optimal_size_index = np.argmax(cv_scores)
@@ -55,6 +74,7 @@ def exp1(data, labels):
 
     # Train final model using the optimal tree size on the entire training set
     model = tree.DecisionTreeClassifier(max_depth=optimal_size)
+    #model = tree.DecisionTreeClassifier(max_depth=7)
     model.fit(X_train, y_train)
 
     # Evaluate final model on the test set
@@ -69,7 +89,7 @@ def exp1(data, labels):
     plt.close()
 
     # Plot feature importance in final model
-    plt.figure(figsize=(10, 6))
+    plt.figure(figsize=(20, 20))
     plt.barh(feature_names, model.feature_importances_)
     plt.xlabel('Feature Importance')
     plt.ylabel('Feature')
@@ -97,6 +117,7 @@ def exp1(data, labels):
     plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
     plt.xlim([0.0, 1.0])
     plt.ylim([0.0, 1.05])
+
     plt.xlabel('False Positive Rate')
     plt.ylabel('True Positive Rate')
     plt.title('Receiver Operating Characteristic (ROC) Curve')
