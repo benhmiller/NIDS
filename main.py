@@ -13,13 +13,8 @@ from sklearn import neural_network
 from sklearn import model_selection
 from sklearn.model_selection import train_test_split, cross_val_score, GridSearchCV
 
-
 def exp1(data, labels):
     """STUDENT CODE BELOW"""
-    # define model architecure
-    # model = tree.DecisionTreeClassifier(max_depth=1)
-    # print(data.shape, labels.shape)
-
     # Prepare local variables
     X = data
     y = labels
@@ -47,7 +42,6 @@ def exp1(data, labels):
     optimal_size_index = np.argmax(cv_scores)
     optimal_size = tree_sizes[optimal_size_index]
     optimal_score = cv_scores[optimal_size_index]
-
     print("Optimal Tree Size:", optimal_size)
     print("Average Cross-Validation Accuracy:", optimal_score)
 
@@ -56,12 +50,8 @@ def exp1(data, labels):
     plt.title('Accuracy vs. Tree Depth')
     plt.xlabel('Tree Depth')
     plt.ylabel('Cross-Validation Accuracy')
-
-    # Save the plot as an image file
-    plt.savefig('figures/accuracy_vs_tree_depth.png')
-
-    # Show the plot (optional)
-    plt.show()
+    plt.savefig('figures/exp1/accuracy_vs_tree_depth.png')
+    plt.close()
 
     # Train final model using the optimal tree size on the entire training set
     model = tree.DecisionTreeClassifier(max_depth=optimal_size)
@@ -70,6 +60,50 @@ def exp1(data, labels):
     # Evaluate final model on the test set
     test_accuracy = model.score(X_test, y_test)
     print("Test Set Accuracy:", test_accuracy)
+
+    # Plot decision tree of final model
+    feature_names = list(X.columns)
+    plt.figure(figsize=(40, 20))
+    tree.plot_tree(model, filled=True, rounded=True, feature_names=feature_names)
+    plt.savefig('figures/exp1/decision_tree.png')
+    plt.close()
+
+    # Plot feature importance in final model
+    plt.figure(figsize=(10, 6))
+    plt.barh(feature_names, model.feature_importances_)
+    plt.xlabel('Feature Importance')
+    plt.ylabel('Feature')
+    plt.title('Feature Importances')
+    plt.savefig('figures/exp1/feature_importances.png')
+    plt.close()
+
+    # Plot confusion matrix of final model
+    y_pred = model.predict(X_test)
+    conf_matrix = metrics.confusion_matrix(y_test, y_pred)
+    plt.figure(figsize=(8, 6))
+    sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues')
+    plt.xlabel('Predicted labels')
+    plt.ylabel('True labels')
+    plt.title('Confusion Matrix')
+    plt.savefig('figures/exp1/confusion_matrix.png')
+    plt.close()
+
+    # Plot ROC Curve of final model
+    y_pred_proba = model.predict_proba(X_test)[:, 1]
+    fpr, tpr, thresholds = metrics.roc_curve(y_test, y_pred_proba)
+    roc_auc = metrics.auc(fpr, tpr)
+    plt.figure(figsize=(8, 6))
+    plt.plot(fpr, tpr, color='darkorange', lw=2, label='ROC curve (area = %0.2f)' % roc_auc)
+    plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
+    plt.xlim([0.0, 1.0])
+    plt.ylim([0.0, 1.05])
+    plt.xlabel('False Positive Rate')
+    plt.ylabel('True Positive Rate')
+    plt.title('Receiver Operating Characteristic (ROC) Curve')
+    plt.legend(loc="lower right")
+    plt.savefig('figures/exp1/ROC_curve.png')
+    plt.close()
+
     """STUDENT CODE ABOVE"""
     return model
 
@@ -106,17 +140,70 @@ def exp2(data, labels):
     optimal_size_index = np.argmax(cv_scores)
     optimal_size = tree_sizes[optimal_size_index]
     optimal_score = cv_scores[optimal_size_index]
-
     print("Optimal Tree Size:", optimal_size)
     print("Average Cross-Validation Accuracy:", optimal_score)
 
+    # Plot Accuracy vs. Tree Depth
+    plt.plot(tree_sizes, cv_scores, marker='o')
+    plt.title('Accuracy vs. Tree Depth')
+    plt.xlabel('Tree Depth')
+    plt.ylabel('Cross-Validation Accuracy')
+    plt.savefig('figures/exp2/accuracy_vs_tree_depth.png')
+    plt.close()
+
     # Train final model using the optimal tree size on the entire training set
     model = tree.DecisionTreeClassifier(max_depth=optimal_size)
+    #model = tree.DecisionTreeClassifier(max_depth=4)
     model.fit(X_train, y_train)
 
     # Evaluate final model on the test set
     test_accuracy = model.score(X_test, y_test)
     print("Test Set Accuracy:", test_accuracy)
+
+    # Plot decision tree of final model
+    feature_names = list(X.columns)
+    plt.figure(figsize=(40, 20))
+    tree.plot_tree(model, filled=True, rounded=True, feature_names=feature_names)
+    plt.savefig('figures/exp2/decision_tree.png')
+    plt.close()
+
+    # Plot feature importance in final model
+    plt.figure(figsize=(10, 6))
+    plt.barh(feature_names, model.feature_importances_)
+    plt.xlabel('Feature Importance')
+    plt.ylabel('Feature')
+    plt.title('Feature Importances')
+    plt.savefig('figures/exp2/feature_importances.png')
+    plt.close()
+
+    # Plot confusion matrix of final model
+    y_pred = model.predict(X_test)
+    conf_matrix = metrics.confusion_matrix(y_test, y_pred)
+    plt.figure(figsize=(8, 6))
+    sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues')
+    plt.xlabel('Predicted labels')
+    plt.ylabel('True labels')
+    plt.title('Confusion Matrix')
+    plt.savefig('figures/exp2/confusion_matrix.png')
+    plt.close()
+
+    # Plot ROC Curve of final model
+    '''
+    y_pred_proba = model.predict_proba(X_test)[:, 1]
+    fpr, tpr, thresholds = metrics.roc_curve(y_test, y_pred_proba)
+    roc_auc = metrics.auc(fpr, tpr)
+    plt.figure(figsize=(8, 6))
+    plt.plot(fpr, tpr, color='darkorange', lw=2, label='ROC curve (area = %0.2f)' % roc_auc)
+    plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
+    plt.xlim([0.0, 1.0])
+    plt.ylim([0.0, 1.05])
+    plt.xlabel('False Positive Rate')
+    plt.ylabel('True Positive Rate')
+    plt.title('Receiver Operating Characteristic (ROC) Curve')
+    plt.legend(loc="lower right")
+    plt.savefig('figures/exp2/ROC_curve.png')
+    plt.close()
+    '''
     """STUDENT CODE ABOVE"""
     return model
 
