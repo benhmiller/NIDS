@@ -30,6 +30,7 @@ According to the above confusion matrix, we find the model proves extremely accu
 
 ![Experiment 1: ROC Curve](../figures/exp1/ROC_curve.png)
 
+
 According to the provided ROC curve, the apparent optimal threshold for predicting something as positive is ~1.0, implying a near perfect classifier.
 ---
 ---
@@ -65,7 +66,7 @@ According to the above plot, the most important features appear to be: src_bytes
 
 ![Experiment 2: Confusion Matrix](../figures/exp2/confusion_matrix.png)
 
-According to the confusion matrix, the model proves extremely accurate as false identifications occurs relatively infrequently in comparison to correct categorization. Further, due to the labeling of each cell, one may conclude that the ordering of most to least frequently occurring categories of data are: benign samples, DoS traffic, Probe traffic, R2L traffic, and, finally, U2R traffic. Finally, one may note that the model struggles most in identifyinf class 3 samples, incorrectly marking 20 of the 251 as benign (0).
+According to the confusion matrix, the model proves extremely accurate as false identifications occurs relatively infrequently in comparison to correct categorization. Further, due to the labeling of each cell, one may conclude that the ordering of most to least frequently occurring categories of data are: benign samples, DoS traffic, Probe traffic, R2L traffic, and, finally, U2R traffic. Finally, one may note that the model struggles most in identifying class 3 samples, incorrectly marking 20 of the 251 as benign (0).
 
 ---
 ---
