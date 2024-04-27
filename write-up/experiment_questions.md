@@ -82,19 +82,19 @@ As before with the decision tree classifier, I worried the model may experience 
 
 ### Q2: Provide a plot of the loss curve over the epochs trained. What do you observe as the number of epochs increases?
 
-![Experiment 3: Loss Curve](figures/exp3/loss_curve.png)
+![Experiment 3: Loss Curve](../figures/exp3/loss_curve.png)
 
 According to the figure above, as the number of epochs increases, loss decreases, indicating the model improves over time.
 
 ### Q3: Plot a confusion matrix on the validation data. Discuss what you observe.
 
-![Experiment 3: Confusion Matrix](figures/exp3/confusion_matrix.png)
+![Experiment 3: Confusion Matrix](../figures/exp3/confusion_matrix.png)
 
 According to the above confusion matrix, we find the model proves extremely accurate on the validation data as the false positive and false negative counts appear extremely low in comparison to the true positive and true negative counts. In fact, the matrix suggests the model demonstrates an accuracy of: 99.55%.
 
 ### Q4: Plot a ROC curve on the validation data. What do you find to be the optimal threshold for predicting something as positive?
 
-![Experiment 3: ROC Curve](figures/exp3/ROC_curve.png)
+![Experiment 3: ROC Curve](../figures/exp3/ROC_curve.png)
 According to the provided ROC curve, the apparent optimal threshold for predicting something as positive is ~1.0, implying a near perfect classifier.
 
 ---
@@ -110,12 +110,12 @@ Building on experiment 3, I again sought to vary the hyperparameters of hidden l
 
 ### Q2: Provide a plot of the loss curve over the epochs trained. What do you observe as the number of epochs increases?
 
-![placeholder image](figures/exp4/loss_curve.png)
+![Experiment 4: Loss Curve](../figures/exp4/loss_curve.png)
 
 As before with the binary classifier, the loss curve above indicates that, as the number of epochs increases, loss decreases—suggesting the model improves over time.
 
 ### Q3: Plot a confusion matrix on the validation data. Discuss what you observe.
 
-![placeholder image](figures/exp4/confusion_matrix.png)
+![Experiment 4: Confusion Matrix](../figures/exp4/confusion_matrix.png)
 
 According to the above confusion matrix, one finds that, for the vast majority of samples, the classifier performs an accurate identification. Nevertheless, the 39 class 3 samples predicted as benign (0) suggests significant room for improvement.
