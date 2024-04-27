@@ -27,7 +27,7 @@ Assessing the impact on the NIDS deployment:
 
 ### Q4: What differences did you observe between the decision tree models and the neural networks? What are some pros and cons of using each model from a security perspective?
 
-Replace this text with your answer (should be between 2-4 sentences).
+When evaluating the decision tree and neural network models, one of the most noticeable differences was the inability to understand how exactly the NN found patterns to identify threats. While the decision tree offers the option to examine each node to understand the filtering of traffic, the neural network fails to provide such functionality. Alas, in real-world settings, complex data relationships may struggle to be mapped by an efficient decision tree, meaning a neural network, which excels in this task, could prove far more favorable for the job.
 
 ### Q5: Between decision trees and neural networks, which model would you recommend using in security sensitive domains and why? There are no wrong answers here, but answer should be supported with sufficient justification.
 
@@ -35,7 +35,7 @@ Personally, I feel that a decision tree model would prove more effective in secu
 
 ### Q6: What did you notice when switching from the binary classification to multiclass classification setting? How does that impact security?
 
-Replace this text with your answer (should be between 2-4 sentences).
+When switching from the binary classification to multiclass classification setting, I noticed that the performance of the NIDS became much harder to gauge. In particular, when attempting to classify traffic among a variety of potential categories, the system could perform well at separating certain types of traffic, but struggle with others. For example, in my experience, both the neural network and decision tree classifiers struggled to identify class 3 traffic (R2L traffic), despite performing well in other areas. For real-world security systems, this could suggest that even a well-tuned model for particular types of threats may fail for certain classes, leaving the network vulnerable and open to attack.
 
 ### Q7: What information does an NIDS (and therefore the system admins) need to access to be effective, and how does that relate to the privacy of users accessing the network?
 

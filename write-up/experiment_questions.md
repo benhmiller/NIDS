@@ -44,7 +44,7 @@ Building on experiment 1, when performing multiclass classification with the dec
 
 ### Q2: Provide an image of the trained decision tree. Discuss what you observe.
 
-![Experiment 2: Decision Tree](../figures/exp2/decision_tree.svg)
+![Experiment 2: Decision Tree](../figures/exp2/decision_tree.png)
 
 Since cross validation testing on the range 5-15 resulted in a selected maximum depth of 14, the trained decision tree appears complex with numerous nodes. Again, I would like to reiterate my concerns that the large depth of the tree could possibly lead to overfitting and the capturing of intricate patterns in the data that hold little implication across the data set as a whole. Nevertheless, I can not deny that a depth of 14 consistently provided the highest test accuracy of ~95% and above. Thus, the depth was maintained for the final model.
 
@@ -56,7 +56,7 @@ According to the above plot, the most important features appear to be: src_bytes
 - Src_bytes: This feature likely represents the number of bytes sent from the source to the destination server in a network communication. High values of src_bytes may indicate unusually large data transfers which could be suggestive of certain types of attacks—in particular, Denial of Service (DoS) attacks. Consequently, the classifier assigns this feature high importance for distinguishing between normal and malicious network traffic.
 
 
-- Count: Count may 
+- Count: Likely functioning as the count of the number of connections to the same destination host, a high count may prove indicative of suspicious behavior. In particular, for certain attacks, such as a port scanning attack, a malicious user may engage in numerous connections with the server in an attempt to expose vulnerabilities in the system. Consequently, "count" must prove useful in separating benign and malicious traffic.
 
 
 - DSt_host_srv_count: This feature represents the number of services being run on the destination host. One possible explanation for the importance of this feature may be that an increase in the number of applications being served results in an increase in the likelihood of serving a malicious application. Further, returning to the example of SYN flooding attacks, serving a high number of users may also represent a DoS attack, thereby leading to the benefit of using dst_host_srv_count for classification.

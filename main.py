@@ -83,7 +83,7 @@ def exp1(data, labels):
 
     # Plot decision tree of final model
     feature_names = list(X.columns)
-    plt.figure(figsize=(40, 20))
+    plt.figure(figsize=(40, 20), dpi=600)
     tree.plot_tree(model, filled=True, rounded=True, feature_names=feature_names)
     plt.savefig('figures/exp1/decision_tree.png')
     plt.close()
@@ -182,9 +182,9 @@ def exp2(data, labels):
 
     # Plot decision tree of final model
     feature_names = list(X.columns)
-    plt.figure(figsize=(40, 20))
+    plt.figure(figsize=(40, 20), dpi=600)
     tree.plot_tree(model, filled=True, rounded=True, feature_names=feature_names)
-    plt.savefig('figures/exp2/decision_tree.svg', format='svg')
+    plt.savefig('figures/exp2/decision_tree.png')
     plt.close()
 
     # Plot feature importance in final model
